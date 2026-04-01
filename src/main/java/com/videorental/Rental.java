@@ -1,6 +1,7 @@
 package com.videorental;
 
 class Rental {
+
 	private Movie movie;
 	private int daysRented;
 
@@ -16,4 +17,5 @@ class Rental {
 	public Movie getMovie() {
 		return movie;
 	}
+
 }
