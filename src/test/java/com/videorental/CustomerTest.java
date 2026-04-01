@@ -133,7 +133,7 @@ public class CustomerTest {
     // 하나 추가함 -> Movie 클래스의 메서드 활용
     @Test
     public void movieTitleAndPriceCode() {
-        Movie movie = new Movie(TITLE, Movie.REGULAR);
+        Movie movie = getMovie(Movie.REGULAR);
         assertThat(movie.getTitle()).isEqualTo(TITLE);
         assertThat(movie.getPriceCode()).isEqualTo(Movie.REGULAR);
         movie.setPriceCode(Movie.NEW_RELEASE);
@@ -143,9 +143,22 @@ public class CustomerTest {
     //** 헬퍼 메서드 **//
 
     private static Rental createRentalFor(int priceCode, int daysRented) {
-        Movie movie = new Movie(TITLE, priceCode);
+        Movie movie = getMovie(priceCode);
         Rental rental = new Rental(movie, daysRented);
         return rental;
+    }
+
+    private static Movie getMovie(int priceCode) {
+        switch (priceCode) {
+            case Movie.REGULAR:
+                return new RegularMovie(TITLE);
+            case Movie.NEW_RELEASE:
+                return new NewReleaseMovie(TITLE);
+            case Movie.CHILDRENS:
+                return new ChildrenMovie(TITLE);
+            default:
+                return null;
+        }
     }
 
 }
