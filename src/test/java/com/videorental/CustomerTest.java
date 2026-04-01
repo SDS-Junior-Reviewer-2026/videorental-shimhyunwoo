@@ -31,7 +31,7 @@ public class CustomerTest {
     @Test
     public void statementForRegularMovieRentalForLessThan3Days() {
         // arrange
-        customer.addRental(createRentalFor(Movie.REGULAR, 2));
+        customer.addRental(createRentalFor(MovieType.REGULAR, 2));
 
         // act
 
@@ -45,7 +45,7 @@ public class CustomerTest {
     @Test
     public void statementForRegularMovieRentalForLessThan2Days() {
         // arrange
-        customer.addRental(createRentalFor(Movie.REGULAR, 3));
+        customer.addRental(createRentalFor(MovieType.REGULAR, 3));
 
         // act
 
@@ -59,7 +59,7 @@ public class CustomerTest {
     @Test
     public void statementForNewReleaseMovie() {
         // arrange
-        customer.addRental(createRentalFor(Movie.NEW_RELEASE, 1));
+        customer.addRental(createRentalFor(MovieType.NEW_RELEASE, 1));
 
         // act
 
@@ -73,7 +73,7 @@ public class CustomerTest {
     @Test
     public void statementForChildrenMovieRentalMoreThan3Days() {
         // arrange
-        customer.addRental(createRentalFor(Movie.CHILDRENS, 4));
+        customer.addRental(createRentalFor(MovieType.CHILDRENS, 4));
 
         // act
 
@@ -87,7 +87,7 @@ public class CustomerTest {
     @Test
     public void statementForChildrenMovieRentalMoreThan4Days() {
         // arrange
-        customer.addRental(createRentalFor(Movie.CHILDRENS, 3));
+        customer.addRental(createRentalFor(MovieType.CHILDRENS, 3));
 
         // act
 
@@ -101,7 +101,7 @@ public class CustomerTest {
     @Test
     public void statementForNewReleaseMovieRentalMoreThan1Day() {
         // arrange
-        customer.addRental(createRentalFor(Movie.NEW_RELEASE, 2));
+        customer.addRental(createRentalFor(MovieType.NEW_RELEASE, 2));
 
         // act
 
@@ -115,9 +115,9 @@ public class CustomerTest {
     @Test
     public void statementForFewMoviesRental() {
         // arrange
-        customer.addRental(createRentalFor(Movie.REGULAR, 1));
-        customer.addRental(createRentalFor(Movie.NEW_RELEASE, 4));
-        customer.addRental(createRentalFor(Movie.CHILDRENS, 4));
+        customer.addRental(createRentalFor(MovieType.REGULAR, 1));
+        customer.addRental(createRentalFor(MovieType.NEW_RELEASE, 4));
+        customer.addRental(createRentalFor(MovieType.CHILDRENS, 4));
 
         // act
 
@@ -133,28 +133,28 @@ public class CustomerTest {
     // 하나 추가함 -> Movie 클래스의 메서드 활용
     @Test
     public void movieTitleAndPriceCode() {
-        Movie movie = getMovie(Movie.REGULAR);
+        Movie movie = getMovie(MovieType.REGULAR);
         assertThat(movie.getTitle()).isEqualTo(TITLE);
-        assertThat(movie.getPriceCode()).isEqualTo(Movie.REGULAR);
-        movie.setPriceCode(Movie.NEW_RELEASE);
-        assertThat(movie.getPriceCode()).isEqualTo(Movie.NEW_RELEASE);
+        assertThat(movie.getPriceCode()).isEqualTo(MovieType.REGULAR);
+        movie.setPriceCode(MovieType.NEW_RELEASE);
+        assertThat(movie.getPriceCode()).isEqualTo(MovieType.NEW_RELEASE);
     }
 
     //** 헬퍼 메서드 **//
 
-    private static Rental createRentalFor(int priceCode, int daysRented) {
+    private static Rental createRentalFor(MovieType priceCode, int daysRented) {
         Movie movie = getMovie(priceCode);
         Rental rental = new Rental(movie, daysRented);
         return rental;
     }
 
-    private static Movie getMovie(int priceCode) {
+    private static Movie getMovie(MovieType priceCode) {
         switch (priceCode) {
-            case Movie.REGULAR:
+            case REGULAR:
                 return new RegularMovie(TITLE);
-            case Movie.NEW_RELEASE:
+            case NEW_RELEASE:
                 return new NewReleaseMovie(TITLE);
-            case Movie.CHILDRENS:
+            case CHILDRENS:
                 return new ChildrenMovie(TITLE);
             default:
                 return null;
